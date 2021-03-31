@@ -1,0 +1,119 @@
+@model test.Models.Actividad
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<input type="hidden" id="totalresueltos" value=''>
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-4"><canvas id="total"></canvas></div>
+        <div class="col-md-4"><canvas id="resueltas"></div>
+        <div class="col-md-4"><canvas id="no_resueltas"></div>
+    </div>
+</div>
+
+
+
+@section Scripts
+{
+    <script>
+        // Obtener una referencia al elemento canvas del DOM
+        const $total = document.querySelector("#total");
+        // Las etiquetas son las que van en el eje X. 
+        const to_etiquetas = ["Enero", "Febrero", "Marzo", "Abril"]
+        // Podemos tener varios conjuntos de datos. Comencemos con uno
+        const to_datos = {
+            label: "Total de llamadas atendidas por semana",
+            data: [5000, 1500, 8000, 5102], // La data es un arreglo que debe tener la misma cantidad de valores que la cantidad de etiquetas
+            backgroundColor: 'rgba(54, 162, 235, 0.2)', // Color de fondo
+            borderColor: 'rgba(54, 162, 235, 1)', // Color del borde
+            borderWidth: 1,// Ancho del borde
+        };
+        new Chart($total, {
+            type: 'bar',// Tipo de gráfica
+            data: {
+                labels: to_etiquetas,
+                datasets: [
+                    to_datos,
+                    // Aquí más datos...
+                ]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }],
+                },
+            }
+        });
+    </script>
+    <script>
+        // Obtener una referencia al elemento canvas del DOM
+        const $resueltas = document.querySelector("#resueltas");
+        // Las etiquetas son las que van en el eje X. 
+        const res_etiquetas = ["Enero", "Febrero", "Marzo", "Abril"]
+        // Podemos tener varios conjuntos de datos. Comencemos con uno
+        const res_datos = {
+            label: "Total de las llamadas resueltas",
+            data: [5000, 1500, 8000, 5102], // La data es un arreglo que debe tener la misma cantidad de valores que la cantidad de etiquetas
+            backgroundColor: 'rgba(54, 162, 235, 0.2)', // Color de fondo
+            borderColor: 'rgba(54, 162, 235, 1)', // Color del borde
+            borderWidth: 1,// Ancho del borde
+        };
+        new Chart($resueltas, {
+            type: 'bar',// Tipo de gráfica
+            data: {
+                labels: res_etiquetas,
+                datasets: [
+                    res_datos,
+                    // Aquí más datos...
+                ]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }],
+                },
+            }
+        });
+    </script>
+    <script>
+        // Obtener una referencia al elemento canvas del DOM
+        const $no_resueltas = document.querySelector("#no_resueltas");
+        // Las etiquetas son las que van en el eje X. 
+        const no_res_etiquetas = ["Enero", "Febrero", "Marzo", "Abril"]
+        // Podemos tener varios conjuntos de datos. Comencemos con uno
+        const no_res_datos = {
+            label: "Total de las llamadas no resueltas",
+            data: [5000, 1500, 8000, 5102], // La data es un arreglo que debe tener la misma cantidad de valores que la cantidad de etiquetas
+            backgroundColor: 'rgba(54, 162, 235, 0.2)', // Color de fondo
+            borderColor: 'rgba(54, 162, 235, 1)', // Color del borde
+            borderWidth: 1,// Ancho del borde
+        };
+        new Chart($no_resueltas, {
+            type: 'bar',// Tipo de gráfica
+            data: {
+                labels: no_res_etiquetas,
+                datasets: [
+                    no_res_datos,
+                    // Aquí más datos...
+                ]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }],
+                },
+            }
+        });
+    </script>
+}
