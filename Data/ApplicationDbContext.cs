@@ -17,9 +17,12 @@ namespace test.Data
         public DbSet<Tipo> Tipos { get; set; }
         public DbSet<Resol> Resols { get; set; }
         public DbSet<Actividad> Actividades { get; set; }
+        public DbSet<User> Users { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.Entity<IdentityUser>().ToTable("Users");
+            builder.Entity<IdentityRole>().ToTable("Roles");
         }
     }  
 }
