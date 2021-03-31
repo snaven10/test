@@ -10,85 +10,85 @@ using test.Models;
 
 namespace test.Controllers
 {
-    public class ResolGenreController : Controller
+    public class UserController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ResolGenreController(ApplicationDbContext context)
+        public UserController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: ResolGenre
+        // GET: User
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Resols.ToListAsync());
+            return View(await _context.User.ToListAsync());
         }
 
-        // GET: ResolGenre/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: User/Details/5
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var resol = await _context.Resols
+            var user = await _context.User
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (resol == null)
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return View(resol);
+            return View(user);
         }
 
-        // GET: ResolGenre/Create
+        // GET: User/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: ResolGenre/Create
+        // POST: User/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Resol resol)
+        public async Task<IActionResult> Create([Bind("Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] User user)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(resol);
+                _context.Add(user);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(resol);
+            return View(user);
         }
 
-        // GET: ResolGenre/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: User/Edit/5
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var resol = await _context.Resols.FindAsync(id);
-            if (resol == null)
+            var user = await _context.User.FindAsync(id);
+            if (user == null)
             {
                 return NotFound();
             }
-            return View(resol);
+            return View(user);
         }
 
-        // POST: ResolGenre/Edit/5
+        // POST: User/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Resol resol)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] User user)
         {
-            if (id != resol.Id)
+            if (id != user.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace test.Controllers
             {
                 try
                 {
-                    _context.Update(resol);
+                    _context.Update(user);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ResolExists(resol.Id))
+                    if (!UserExists(user.Id))
                     {
                         return NotFound();
                     }
@@ -113,41 +113,41 @@ namespace test.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(resol);
+            return View(user);
         }
 
-        // GET: ResolGenre/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: User/Delete/5
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var resol = await _context.Resols
+            var user = await _context.User
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (resol == null)
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return View(resol);
+            return View(user);
         }
 
-        // POST: ResolGenre/Delete/5
+        // POST: User/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var resol = await _context.Resols.FindAsync(id);
-            _context.Resols.Remove(resol);
+            var user = await _context.User.FindAsync(id);
+            _context.User.Remove(user);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ResolExists(int id)
+        private bool UserExists(string id)
         {
-            return _context.Resols.Any(e => e.Id == id);
+            return _context.User.Any(e => e.Id == id);
         }
     }
 }

@@ -10,85 +10,85 @@ using test.Models;
 
 namespace test.Controllers
 {
-    public class TipoGenreController : Controller
+    public class RoleController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public TipoGenreController(ApplicationDbContext context)
+        public RoleController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: TipoGenre
+        // GET: Role
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Tipos.ToListAsync());
+            return View(await _context.Role.ToListAsync());
         }
 
-        // GET: TipoGenre/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: Role/Details/5
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var tipo = await _context.Tipos
+            var role = await _context.Role
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (tipo == null)
+            if (role == null)
             {
                 return NotFound();
             }
 
-            return View(tipo);
+            return View(role);
         }
 
-        // GET: TipoGenre/Create
+        // GET: Role/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: TipoGenre/Create
+        // POST: Role/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Tipo tipo)
+        public async Task<IActionResult> Create([Bind("Id,Name,NormalizedName,ConcurrencyStamp")] Role role)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(tipo);
+                _context.Add(role);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(tipo);
+            return View(role);
         }
 
-        // GET: TipoGenre/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: Role/Edit/5
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var tipo = await _context.Tipos.FindAsync(id);
-            if (tipo == null)
+            var role = await _context.Role.FindAsync(id);
+            if (role == null)
             {
                 return NotFound();
             }
-            return View(tipo);
+            return View(role);
         }
 
-        // POST: TipoGenre/Edit/5
+        // POST: Role/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Tipo tipo)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Name,NormalizedName,ConcurrencyStamp")] Role role)
         {
-            if (id != tipo.Id)
+            if (id != role.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace test.Controllers
             {
                 try
                 {
-                    _context.Update(tipo);
+                    _context.Update(role);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TipoExists(tipo.Id))
+                    if (!RoleExists(role.Id))
                     {
                         return NotFound();
                     }
@@ -113,41 +113,41 @@ namespace test.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(tipo);
+            return View(role);
         }
 
-        // GET: TipoGenre/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: Role/Delete/5
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var tipo = await _context.Tipos
+            var role = await _context.Role
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (tipo == null)
+            if (role == null)
             {
                 return NotFound();
             }
 
-            return View(tipo);
+            return View(role);
         }
 
-        // POST: TipoGenre/Delete/5
+        // POST: Role/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var tipo = await _context.Tipos.FindAsync(id);
-            _context.Tipos.Remove(tipo);
+            var role = await _context.Role.FindAsync(id);
+            _context.Role.Remove(role);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TipoExists(int id)
+        private bool RoleExists(string id)
         {
-            return _context.Tipos.Any(e => e.Id == id);
+            return _context.Role.Any(e => e.Id == id);
         }
     }
 }
