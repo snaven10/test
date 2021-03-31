@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace test.Data.Migrations
 {
-    public partial class Cambios : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,9 +14,11 @@ namespace test.Data.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Duracion_llamada = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
-                    Descripcion = table.Column<string>(type: "TEXT", maxLength: 150, nullable: true),
-                    Id_tipo = table.Column<int>(type: "INTEGER", nullable: false),
-                    Id_resol = table.Column<int>(type: "INTEGER", nullable: false)
+                    Descripcion = table.Column<string>(type: "TEXT", maxLength: 150, nullable: false),
+                    Fecha = table.Column<string>(type: "TEXT", maxLength: 20, nullable: true),
+                    Tipo = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
+                    Resolvio = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
+                    Id_user = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -24,23 +26,11 @@ namespace test.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Resols",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Resols", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
+                    Discriminator = table.Column<string>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "TEXT", nullable: true)
@@ -48,19 +38,6 @@ namespace test.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Roles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Tipos",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tipos", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -252,12 +229,6 @@ namespace test.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
-
-            migrationBuilder.DropTable(
-                name: "Resols");
-
-            migrationBuilder.DropTable(
-                name: "Tipos");
 
             migrationBuilder.DropTable(
                 name: "Roles");

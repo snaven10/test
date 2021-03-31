@@ -25,6 +25,10 @@ namespace test.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");
@@ -40,6 +44,8 @@ namespace test.Data.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("Roles");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -225,6 +231,7 @@ namespace test.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Descripcion")
+                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("TEXT");
 
@@ -233,47 +240,33 @@ namespace test.Data.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Id_resol")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Fecha")
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("Id_tipo")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Id_user")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Resolvio")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Tipo")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.ToTable("Actividades");
                 });
 
-            modelBuilder.Entity("test.Models.Resol", b =>
+            modelBuilder.Entity("test.Models.Role", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Resols");
-                });
-
-            modelBuilder.Entity("test.Models.Tipo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Tipos");
+                    b.HasDiscriminator().HasValue("Role");
                 });
 
             modelBuilder.Entity("test.Models.User", b =>
