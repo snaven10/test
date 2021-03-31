@@ -23,20 +23,20 @@ namespace test.Controllers
         }
 
         // GET: Actividad
-        [Authorize(Roles = "Agente")]
+        ////[Authorize(Roles = "Agente")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Actividades.ToListAsync());
         }
         // GET: Actividad/dashboard
-        [Authorize(Roles = "Supervisor")]
+        //[Authorize(Roles = "Supervisor")]
         public  IActionResult dashboard()
         {
             return View();
         }
 
         // GET: Actividad/Create
-        [Authorize(Roles = "Agente")]
+        //[Authorize(Roles = "Agente")]
         public IActionResult Create()
         {
             return View();
@@ -59,7 +59,7 @@ namespace test.Controllers
         }
 
         // GET: Actividad/Edit/5
-        [Authorize(Roles = "Agente")]
+        //[Authorize(Roles = "Agente")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -111,7 +111,7 @@ namespace test.Controllers
         }
 
         // GET: Actividad/Delete/5
-        [Authorize(Roles = "Agente")]
+        //[Authorize(Roles = "Agente")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
